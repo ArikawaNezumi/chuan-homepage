@@ -1,0 +1,53 @@
+---
+import site from "@/config/site";
+import { Image } from "astro:assets";
+
+interface Props {
+  isWriting?: boolean;
+}
+const { isWriting = false } = Astro.props;
+---
+
+{isWriting ? (
+
+  <div class="mb-6 flex flex-col items-center gap-2 md:mb-10">
+    <div class="flex h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-primary/10" transition:name="brand-logo">
+      <Image
+        loading={"eager"}
+        src={site.meta.logo}
+        alt={"Site logo"}
+        width={56}
+        height={56}
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <h1
+      data-pagefind-ignore
+      class="text-sm font-bold tracking-tight text-foreground"
+    >
+      {site.meta.title}
+    </h1>
+  </div>
+) : (
+
+  <div class="mb-6 flex items-center gap-4 md:mb-10">
+    <div class="flex h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-primary/10" transition:name="brand-logo">
+      <Image
+        loading={"eager"}
+        src={site.meta.logo}
+        alt={"Site logo"}
+        width={56}
+        height={56}
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <div>
+      <h1
+        data-pagefind-ignore
+        class="text-lg font-bold tracking-tight text-foreground md:text-xl"
+      >
+        {site.meta.title}
+      </h1>
+    </div>
+  </div>
+)}

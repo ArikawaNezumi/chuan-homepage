@@ -1,0 +1,16 @@
+[
+  {
+    "id": "qpomelo",
+    "name": "Qpomelo",
+    "description": "Personal Web Space of Qpomelo",
+    "link": "https://qpomelo.dev/?tab=about",
+    "avatar": "https://github.com/qpomelo.png"
+  },
+  {
+    "id": "xiaomouz",
+    "name": "XiaoMouz",
+    "description": "XiaoMouz's Blog",
+    "link": "https://mou.best/",
+    "avatar": "https://github.com/xiaomouz.png"
+  }
+]
