@@ -14,7 +14,7 @@ const isWriting = pathname.startsWith("/posts");
 <aside
   class:list={[
     "flex w-full flex-col border-b border-border bg-muted/20 md:border-r md:border-b-0",
-    isWriting ? "p-6 md:w-[14%] md:p-6" : "p-6 md:w-[28%] md:p-10"
+    isWriting ? "p-6 md:w-[14%] md:p-6" : "p-6 md:w-[28%] md:p-10",
   ]}
   data-pagefind-ignore="all"
   transition:name="sidebar"
@@ -25,54 +25,42 @@ const isWriting = pathname.startsWith("/posts");
 
   <Nav isWriting={isWriting} />
 
-  {isWriting ? (
-
-    <div class="mt-6 flex flex-col items-center gap-4 md:mt-auto md:pt-6">
-      <div class="grid grid-cols-2 gap-3 text-muted-foreground/60">
-        {
-          site.social.map((item) => (
-            <a
-              href={item.href}
-              class="flex items-center justify-center cursor-pointer transition-colors hover:text-primary p-1"
-              aria-label={item.name}
-              target="_blank"
-              rel="noopener noreferrer"
-              transition:name={`social-${item.name.toLowerCase()}`}
-            >
-              <Icon name={item.icon} size={22} />
-            </a>
-          ))
-        }
-      </div>
-      <div transition:name="theme-toggle">
-        <ThemeToggle />
-      </div>
+  <div
+    class:list={[
+      "mt-8 flex items-center justify-between",
+      isWriting && "md:mt-auto md:flex-col md:gap-4 md:pt-6",
+      !isWriting && "md:mt-14",
+    ]}
+  >
+    <div
+      class:list={[
+        "flex gap-4 text-muted-foreground/60",
+        isWriting && "md:grid md:grid-cols-2 md:gap-3",
+      ]}
+    >
+      {
+        site.social.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "cursor-pointer transition-colors hover:text-primary",
+              isWriting && "flex items-center justify-center md:p-1",
+            ]}
+            aria-label={item.name}
+            target="_blank"
+            rel="noopener noreferrer"
+            transition:name={`social-${item.name.toLowerCase()}`}
+          >
+            <Icon name={item.icon} size={isWriting ? 22 : 24} />
+          </a>
+        ))
+      }
     </div>
-  ) : (
 
-    <div class="mt-8 flex items-center justify-between md:mt-14">
-      <div class="flex gap-4 text-muted-foreground/60">
-        {
-          site.social.map((item) => (
-            <a
-              href={item.href}
-              class="cursor-pointer transition-colors hover:text-primary"
-              aria-label={item.name}
-              target="_blank"
-              rel="noopener noreferrer"
-              transition:name={`social-${item.name.toLowerCase()}`}
-            >
-              <Icon name={item.icon} size={24} />
-            </a>
-          ))
-        }
-      </div>
-
-      <div transition:name="theme-toggle">
-        <ThemeToggle />
-      </div>
+    <div transition:name="theme-toggle">
+      <ThemeToggle />
     </div>
-  )}
+  </div>
 
   <SearchModal />
 </aside>

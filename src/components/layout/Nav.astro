@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname;
           class:list={[
             "group flex items-center rounded-2xl border border-transparent py-3 transition-all md:min-w-0 md:py-4",
             isWriting
-              ? "min-w-0 justify-center px-2 md:justify-between md:px-3"
+              ? "min-w-24 justify-center px-4 md:min-w-0 md:justify-between md:px-3"
               : "min-w-24 justify-center px-4 md:justify-between",
             isActive
               ? "border-primary/20 bg-primary/10 md:hover:border-primary/20 md:hover:bg-primary/15"
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
             <span
               class:list={[
                 "font-bold",
-                isWriting ? "text-xs" : "text-sm",
+                isWriting ? "text-sm md:text-xs" : "text-sm",
                 isActive
                   ? "text-primary"
                   : "text-muted-foreground group-hover:text-primary",
@@ -55,8 +55,8 @@ const currentPath = Astro.url.pathname;
             </span>
           </div>
 
-          {!isWriting && (
-            isActive ? (
+          {!isWriting &&
+            (isActive ? (
               <span class="hidden text-primary md:block">
                 <Icon name="mdi:arrow-right" />
               </span>
@@ -64,8 +64,7 @@ const currentPath = Astro.url.pathname;
               <span class="hidden -translate-x-2 text-primary opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 md:block">
                 <Icon name="mdi:arrow-right" />
               </span>
-            )
-          )}
+            ))}
         </a>
       );
     })
