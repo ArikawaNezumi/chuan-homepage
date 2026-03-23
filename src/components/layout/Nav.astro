@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <nav
-  class="no-scrollbar flex flex-1 flex-wrap gap-4 overflow-x-auto max-md:justify-between md:flex-col md:gap-4 md:overflow-x-visible"
+  class="no-scrollbar flex flex-1 flex-col gap-2 overflow-x-visible md:gap-4"
 >
   {
     site.navigation.map((item) => {
@@ -23,10 +23,8 @@ const currentPath = Astro.url.pathname;
         <a
           href={item.href}
           class:list={[
-            "group flex items-center rounded-2xl border border-transparent py-3 transition-all md:min-w-0 md:py-4",
-            isWriting
-              ? "min-w-24 justify-center px-4 md:min-w-0 md:justify-between md:px-3"
-              : "min-w-24 justify-center px-4 md:justify-between",
+            "group flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all md:min-w-0 md:py-4",
+            isWriting ? "md:px-3" : "",
             isActive
               ? "border-primary/20 bg-primary/10 md:hover:border-primary/20 md:hover:bg-primary/15"
               : "hover:bg-muted/50",
