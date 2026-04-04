@@ -1,46 +1,39 @@
 ---
 import { Icon } from "astro-icon/components";
-
-interface Props {
-  isWriting?: boolean;
-}
-const { isWriting = false } = Astro.props;
 ---
 
 <div class="mb-4">
   <button
     id="search-trigger"
-    class:list={[
-      "group flex w-full items-center rounded-xl border border-border/50 bg-muted/30 px-3 py-3 text-muted-foreground hover:border-primary/30 hover:text-primary",
-      isWriting ? "justify-between md:justify-center" : "justify-between",
-    ]}
+    class="search-box group flex w-full items-center justify-between rounded-xl border border-border/50 bg-muted/30 px-3 py-3 text-muted-foreground hover:border-primary/30 hover:text-primary"
     title="search trigger"
     transition:name="search-btn"
   >
-    {
-      isWriting ? (
-        <>
-          <div class="flex items-center gap-2 md:hidden">
-            <Icon name="mdi:search" />
-            <span class="text-xs font-medium">Search</span>
-          </div>
-          <span class="hidden md:block">
-            <Icon name="mdi:search" />
-          </span>
-        </>
-      ) : (
-        <div class="flex items-center gap-2">
-          <Icon name="mdi:search" />
-          <span class="text-xs font-medium">Search</span>
-        </div>
-      )
-    }
-    {
-      !isWriting && (
-        <kbd class="hidden items-center gap-1 rounded border border-border/50 px-1.5 py-0.5 font-display text-[12px] opacity-50 md:flex">
-          <Icon name="mdi:apple-keyboard-command" size={12} /> K
-        </kbd>
-      )
-    }
+    <div class="search-box__label flex items-center gap-2">
+      <Icon name="mdi:search" />
+      <span class="text-xs font-medium">Search</span>
+    </div>
+    <kbd
+      class="search-box__shortcut hidden items-center gap-1 rounded border border-border/50 px-1.5 py-0.5 font-display text-[12px] opacity-50 md:flex"
+    >
+      <Icon name="mdi:apple-keyboard-command" size={12} /> K
+    </kbd>
   </button>
 </div>
+
+<style>
+  @media (min-width: 48rem) {
+    [data-sidebar-mode="writing"] .search-box {
+      justify-content: center;
+    }
+
+    [data-sidebar-mode="writing"] .search-box__label {
+      gap: 0;
+    }
+
+    [data-sidebar-mode="writing"] .search-box__label span,
+    [data-sidebar-mode="writing"] .search-box__shortcut {
+      display: none;
+    }
+  }
+</style>

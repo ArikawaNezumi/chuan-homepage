@@ -6,52 +6,34 @@ import { Icon } from "astro-icon/components";
 import Brand from "./Brand.astro";
 import SearchModal from "../blocks/SearchModal.astro";
 import SearchBox from "./SearchBox.astro";
-
-const pathname = Astro.url.pathname;
-const isWriting = pathname.startsWith("/posts");
 ---
 
 <aside
-  class:list={[
-    "flex w-full flex-col border-b border-border bg-muted/20 md:border-r md:border-b-0",
-    isWriting ? "p-6 md:w-[14%] md:p-6" : "p-6 md:w-[28%] md:p-10",
-  ]}
+  class="sidebar-shell flex w-full flex-col border-b border-border bg-muted/20 p-6 md:w-[28%] md:border-r md:border-b-0 md:p-10"
   data-pagefind-ignore="all"
+  transition:animate="none"
   transition:name="sidebar"
+  transition:persist
 >
-  <Brand isWriting={isWriting} />
+  <Brand />
 
-  <SearchBox isWriting={isWriting} />
+  <SearchBox />
 
-  <Nav isWriting={isWriting} />
+  <Nav />
 
-  <div
-    class:list={[
-      "mt-8 flex items-center justify-between",
-      isWriting && "md:mt-auto md:flex-col md:gap-4 md:pt-6",
-      !isWriting && "md:mt-14",
-    ]}
-  >
-    <div
-      class:list={[
-        "flex gap-4 text-muted-foreground/60",
-        isWriting && "md:grid md:grid-cols-2 md:gap-3",
-      ]}
-    >
+  <div class="sidebar-actions mt-8 flex items-center justify-between md:mt-14">
+    <div class="sidebar-social flex gap-4 text-muted-foreground/60">
       {
         site.social.map((item) => (
           <a
             href={item.href}
-            class:list={[
-              "cursor-pointer transition-colors hover:text-primary",
-              isWriting && "flex items-center justify-center md:p-1",
-            ]}
+            class="sidebar-social-link cursor-pointer transition-colors hover:text-primary"
             aria-label={item.name}
             target="_blank"
             rel="noopener noreferrer"
             transition:name={`social-${item.name.toLowerCase()}`}
           >
-            <Icon name={item.icon} size={isWriting ? 22 : 24} />
+            <Icon name={item.icon} size={24} />
           </a>
         ))
       }
@@ -64,3 +46,37 @@ const isWriting = pathname.startsWith("/posts");
 
   <SearchModal />
 </aside>
+
+<style>
+  @media (min-width: 48rem) {
+    [data-sidebar-mode="writing"] .sidebar-shell {
+      padding: 1.5rem;
+      width: 14%;
+    }
+
+    [data-sidebar-mode="writing"] .sidebar-actions {
+      margin-top: auto;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 1.5rem;
+    }
+
+    [data-sidebar-mode="writing"] .sidebar-social {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    [data-sidebar-mode="writing"] .sidebar-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+    }
+
+    [data-sidebar-mode="writing"] .sidebar-social-link :global(svg) {
+      width: 22px;
+      height: 22px;
+    }
+  }
+</style>

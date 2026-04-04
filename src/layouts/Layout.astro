@@ -6,10 +6,12 @@ import type { HeadProps } from "@/types";
 type Props = HeadProps;
 
 const head = Astro.props;
+const isWriting = Astro.url.pathname.startsWith("/posts");
 ---
 
 <BaseLayout {...head}>
   <div
+    data-sidebar-mode={isWriting ? "writing" : "default"}
     class="relative flex h-auto w-full max-w-[70rem] flex-col overflow-hidden rounded-none border border-border bg-card shadow-main md:flex-row md:rounded-[2.5rem]"
   >
     <Sidebar />

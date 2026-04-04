@@ -2,11 +2,6 @@
 import site from "@/config/site";
 import { Icon } from "astro-icon/components";
 
-interface Props {
-  isWriting?: boolean;
-}
-const { isWriting = false } = Astro.props;
-
 const currentPath = Astro.url.pathname;
 ---
 
@@ -23,8 +18,7 @@ const currentPath = Astro.url.pathname;
         <a
           href={item.href}
           class:list={[
-            "group flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all md:min-w-0 md:py-4",
-            isWriting ? "md:px-3" : "",
+            "nav-link group flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all md:min-w-0 md:py-4",
             isActive
               ? "border-primary/20 bg-primary/10 md:hover:border-primary/20 md:hover:bg-primary/15"
               : "hover:bg-muted/50",
@@ -34,8 +28,7 @@ const currentPath = Astro.url.pathname;
           <div class="flex flex-col">
             <span
               class:list={[
-                "font-bold",
-                isWriting ? "text-sm md:text-xs" : "text-sm",
+                "nav-link__title text-sm font-bold",
                 isActive
                   ? "text-primary"
                   : "text-muted-foreground group-hover:text-primary",
@@ -53,18 +46,35 @@ const currentPath = Astro.url.pathname;
             </span>
           </div>
 
-          {!isWriting &&
-            (isActive ? (
-              <span class="hidden text-primary md:block">
-                <Icon name="mdi:arrow-right" />
-              </span>
-            ) : (
-              <span class="hidden -translate-x-2 text-primary opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 md:block">
-                <Icon name="mdi:arrow-right" />
-              </span>
-            ))}
+          {isActive ? (
+            <span class="nav-link__arrow hidden text-primary md:block">
+              <Icon name="mdi:arrow-right" />
+            </span>
+          ) : (
+            <span class="nav-link__arrow hidden -translate-x-2 text-primary opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 md:block">
+              <Icon name="mdi:arrow-right" />
+            </span>
+          )}
         </a>
       );
     })
   }
 </nav>
+
+<style>
+  @media (min-width: 48rem) {
+    [data-sidebar-mode="writing"] .nav-link {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    [data-sidebar-mode="writing"] .nav-link__title {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+
+    [data-sidebar-mode="writing"] .nav-link__arrow {
+      display: none;
+    }
+  }
+</style>
