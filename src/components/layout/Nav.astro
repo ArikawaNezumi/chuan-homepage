@@ -78,3 +78,77 @@ const currentPath = Astro.url.pathname;
     }
   }
 </style>
+
+<script>
+  function updateActiveNav() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll("nav .nav-link");
+
+    // Active classes
+    const activeLink =
+      "border-primary/20 bg-primary/10 md:hover:border-primary/20 md:hover:bg-primary/15";
+    const inactiveLink = "hover:bg-muted/50";
+    const activeTitle = "text-primary";
+    const inactiveTitle = "text-muted-foreground group-hover:text-primary";
+    const activeSubtitle = "text-primary/60";
+    const inactiveSubtitle = "text-muted-foreground/50";
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      const isActive =
+        currentPath === href || (href !== "/" && currentPath.startsWith(href));
+
+      const titleEl = link.querySelector(".nav-link__title");
+      const subtitleEl = link.querySelector(".text-\\[10px\\]");
+      const arrowEl = link.querySelector(".nav-link__arrow");
+
+      // Update link classes
+      activeLink.split(" ").forEach((c) => link.classList.toggle(c, isActive));
+      inactiveLink
+        .split(" ")
+        .forEach((c) => link.classList.toggle(c, !isActive));
+
+      // Update title classes
+      if (titleEl) {
+        activeTitle
+          .split(" ")
+          .forEach((c) => titleEl.classList.toggle(c, isActive));
+        inactiveTitle
+          .split(" ")
+          .forEach((c) => titleEl.classList.toggle(c, !isActive));
+      }
+
+      // Update subtitle classes
+      if (subtitleEl) {
+        activeSubtitle
+          .split(" ")
+          .forEach((c) => subtitleEl.classList.toggle(c, isActive));
+        inactiveSubtitle
+          .split(" ")
+          .forEach((c) => subtitleEl.classList.toggle(c, !isActive));
+      }
+
+      // Update arrow visibility
+      if (arrowEl) {
+        if (isActive) {
+          arrowEl.classList.remove(
+            "-translate-x-2",
+            "opacity-0",
+            "group-hover:translate-x-0",
+            "group-hover:opacity-100",
+          );
+        } else {
+          arrowEl.classList.add(
+            "-translate-x-2",
+            "opacity-0",
+            "group-hover:translate-x-0",
+            "group-hover:opacity-100",
+          );
+        }
+      }
+    });
+  }
+
+  // Run on initial page load and after every View Transition
+  document.addEventListener("astro:page-load", updateActiveNav);
+</script>
