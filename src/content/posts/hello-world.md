@@ -4,13 +4,14 @@ description: "这是我的第一篇博客文章，介绍我自己和我的研究
 createdAt: 2026-03-16
 category: "technology"
 tags:
-  - Life
-  - Research
+  - life
+  - research
 ---
 
 Hi，我是有川！欢迎来到我的个人主页 😊
 
 目前我是一名研究生，主要的研究方向集中在以下领域：
+
 - **Edge Computing (边缘计算)**
 - **Federated Learning (联邦学习)**
 - **6G 网络技术**

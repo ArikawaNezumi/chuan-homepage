@@ -2,22 +2,40 @@
 import { Image } from "astro:assets";
 
 interface Props {
-  src: ImageMetadata;
-  alt: string;
+  src: ImageMetadata | string;
+  alt?: string;
+  title?: string;
+  width?: number | string;
+  height?: number | string;
 }
 
-const { src, alt } = Astro.props;
+const { src, alt = "", title, width, height } = Astro.props;
+const isRemoteImage = typeof src === "string" && /^https?:\/\//.test(src);
 ---
 
 <figure class="switch-animation relative rounded-md text-center">
-  <Image
-    src={src}
-    alt={alt}
-    width={672}
-    height={"10"}
-    loading={"lazy"}
-    class={"rounded-md border border-border"}
-  />
+  {
+    isRemoteImage ? (
+      <img
+        src={src}
+        alt={alt}
+        title={title}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        class="mx-auto h-auto max-w-full rounded-md border border-border"
+      />
+    ) : (
+      <Image
+        src={src}
+        alt={alt}
+        title={title}
+        loading="lazy"
+        class="mx-auto h-auto max-w-full rounded-md border border-border"
+      />
+    )
+  }
   {
     alt && (
       <figcaption class="mt-0 block rounded-tr-md px-2 py-2 text-center text-xs font-bold">
